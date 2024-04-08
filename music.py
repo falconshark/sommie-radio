@@ -1,5 +1,9 @@
-class Music:
-    def __init__(self, id, title, author):
-        self.id = id
-        self.title = title
-        self.author = author
+import sqlite3
+
+def loadMusicList():
+    conn = sqlite3.connect('sommie.db')
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM music')
+    print(cur.fetchall())
+    cur.close()
+    conn.close()
