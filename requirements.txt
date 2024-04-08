@@ -14,6 +14,7 @@ moviepy==1.0.3
 numpy==1.26.4
 pillow==10.3.0
 proglog==0.1.10
+pydub==0.25.1
 pytube==15.0.0
 requests==2.31.0
 setuptools==69.2.0
