@@ -26,6 +26,17 @@ def uploadMusic():
             "music_path": music_info['music_path'],
             "music_author": music_author,
             }), 201
+    if (music_source == 'bilibili'):
+            data = request.get_json()
+            music_url = data['music_url']
+            music_author = data['author']
+            music_source = data['source']
+            music_info = music.downloadBiliVideo(music_url)
+            return jsonify({"message": "Uploaded new music.",
+                            "music_title": music_info['music_title'],
+                            "music_path": music_info['music_path'],
+                            "music_author": music_author,
+                            }), 201
     else:
         return jsonify({"message": "Uploaded new music."}), 201
 
