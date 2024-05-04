@@ -9,7 +9,7 @@ def index():
 
 @app.route("/music")
 def musicList():
-    musicList = music.loadMusicList()
+    musicList = music.load_music_list()
     return jsonify(musicList)
 
 #Able user to upload their own music file, or loading music from video website
@@ -20,7 +20,7 @@ def uploadMusic():
     music_source = data['source']
     if (music_source == 'youtube'):
         music_url = data['music_url']
-        music_info = music.downloadYoutubeMusic(music_url)
+        music_info = music.download_youtube_music(music_url)
         return jsonify({"message": "Uploaded new music.",
             "music_title": music_info['music_title'],
             "music_path": music_info['music_path'],
@@ -31,7 +31,7 @@ def uploadMusic():
             music_url = data['music_url']
             music_author = data['author']
             music_source = data['source']
-            music_info = music.downloadBiliVideo(music_url)
+            music_info = music.download_bili_video(music_url)
             return jsonify({"message": "Uploaded new music.",
                             "music_title": music_info['music_title'],
                             "music_path": music_info['music_path'],
