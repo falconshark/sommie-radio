@@ -16,7 +16,7 @@
         <td>{{ music.author }}</td>
         <td>
           <a href="#" class="btn btn-primary">
-            Add to queue
+            Play
           </a>
         </td>
       </tr>
