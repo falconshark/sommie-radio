@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "pinia": "^2.1.7",
+    "query-string": "^9.0.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
+    "sass": "^1.77.1",
     "vite": "^5.2.8"
   }
 }

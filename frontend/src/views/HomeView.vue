@@ -1,9 +1,16 @@
-<script setup>
-import TheWelcome from '../components/TheWelcome.vue'
-</script>
-
 <template>
   <main>
-    <TheWelcome />
+    <MusicList />
   </main>
 </template>
+
+<script>
+import MusicList from '@/components/MusicList.vue';
+export default {
+  name: 'Home',
+  components:{
+    MusicList
+  },
+}
+</script>
+
