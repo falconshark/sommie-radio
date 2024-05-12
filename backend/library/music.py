@@ -24,7 +24,43 @@ def load_music_list():
             'file_path': result[3],
         }
         music_list.append(music)
+        
     return music_list
+
+def load_playlist():
+    playlist = []
+    conn = sqlite3.connect('./sommie.db')
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM playlist')
+    sql_result = cur.fetchall()
+    cur.close()
+    conn.close()
+    
+    for result in sql_result:
+        music = {
+            'order': result[0],
+            'id': result[1],
+        }
+        playlist.append(music)
+    
+    return playlist
+
+def load_music(id):
+    conn = sqlite3.connect('./sommie.db')
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM music where id=?;", (id,))
+    sql_result = cur.fetchone()
+    
+    music = {
+        'id': sql_result[0],
+        'author': sql_result[2],
+        'music_path': sql_result[3],
+        'title': sql_result[1]
+    }
+    
+    cur.close()
+    conn.close()
+    return music
     
 def save_music(music_info):
     conn = sqlite3.connect('./sommie.db')
@@ -43,12 +79,11 @@ def save_music(music_info):
 def download_youtube_music(music_title, url):
     yt = YouTube(url)
     video = yt.streams.filter(only_audio=True).first()
-    destino = "saved_music"
-    out_file = video.download(output_path=destino)
-    base, ext = os.path.splitext(out_file)
+    destino = "saved_music/"
+    out_file = video.download(output_path = destino)
     
     audio = AudioSegment.from_file(out_file)
-    new_file = music_title + '.mp3'
+    new_file = destino + music_title + '.mp3'
     audio.export(new_file, format='mp3')
     #Remove old video file.
     os.remove(out_file)

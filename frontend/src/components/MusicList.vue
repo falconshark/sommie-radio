@@ -1,22 +1,27 @@
 <template>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Song</th>
-      <th scope="col">Author</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr v-for="music in musicList">
+  <h3 class="subtitle">Uploaded Song List</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Song</th>
+        <th scope="col">Author</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="music in musicList">
         <td>{{ music.id }}</td>
         <td>{{ music.title }}</td>
         <td>{{ music.author }}</td>
-        <td>Play</td>
-    </tr>
-  </tbody>
-</table>    
+        <td>
+          <a href="#" class="btn btn-primary">
+            Add to queue
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>
@@ -26,19 +31,19 @@ import Music from '@/lib/music';
 
 export default {
   name: 'MusicList',
-  mounted(){
+  mounted() {
     this.loadMusic();
   },
-  data(){
+  data() {
     return {
-        musicList: [],
+      musicList: [],
     };
   },
-  methods:{
-    async loadMusic(){
-        console.log(this.apiUrl);
-        const musicList = await Music.loadAllMusic(this.apiUrl);
-        this.musicList = musicList;
+  methods: {
+    async loadMusic() {
+      console.log(this.apiUrl);
+      const musicList = await Music.loadAllMusic(this.apiUrl);
+      this.musicList = musicList;
     },
   },
   computed: {
@@ -48,5 +53,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.subtitle {
+  margin-bottom: 20px;
+}
 </style>

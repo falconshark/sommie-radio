@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 import library.music as Music
 
@@ -13,6 +13,28 @@ def index():
 def musicList():
     musicList = Music.load_music_list()
     return jsonify(musicList)
+
+@app.route("/playlist")
+def playList():
+    play_list = Music.load_playlist()
+    return jsonify(play_list)
+
+@app.route("/streaming")
+def streaming():
+    def generate():
+        play_list = Music.load_playlist()
+        music_id = play_list[0]['id']
+        music_file = Music.load_music(music_id)['music_path']
+        
+        with open(music_file, "rb") as fwav:
+            data = fwav.read(1024)
+            while data:
+                yield data
+                data = fwav.read(1024)
+
+                    
+    return Response(generate(), mimetype="audio/mp3")
+                
 
 #Able user to upload their own music file, or loading music from video website
 @app.route('/music', methods = ['POST'])
