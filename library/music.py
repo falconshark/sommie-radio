@@ -14,12 +14,17 @@ class Music:
         music_list = cur.execute('SELECT * FROM music')
         cur.close()
         conn.close()
+        print(music_list)
         return music_list
     
     def save_music(music_info):
         conn = sqlite3.connect('sommie.db')
         cur = conn.cursor()
-        music_list = cur.execute('SELECT * FROM music')
+        music_title = music_info['music_title']
+        music_path = music_info['music_path']
+        music_author = music_info['music_author']
+        #Insert new music to the database.
+        cur.execute('INSERT INTO music(title, author, file_path) values({}, {})'.format(music_title, music_path, music_author))
         cur.close()
         conn.close()
     
