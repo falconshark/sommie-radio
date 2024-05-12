@@ -1,5 +1,5 @@
 import sqlite3
-dbname = './sommie.db'
+dbname = '../sommie.db'
 conn = sqlite3.connect(dbname)
 cur = conn.cursor()
 
